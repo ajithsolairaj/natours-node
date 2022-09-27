@@ -1,21 +1,25 @@
-const express = require('express');
 const path = require('path');
-const formData = require('express-form-data');
+
+// const formData = require('express-form-data');
+const express = require('express');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const cookieParser = require('cookie-parser');
-const AppError = require('./utils/appError'); // creating a custom error class with built in error class
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const cors = require('cors');
 const mongoSanitize = require('express-mongo-sanitize');
+const compression = require('compression');
+
+const AppError = require('./utils/appError'); // creating a custom error class with built in error class
 const globalErrorHandler = require('./controllers/errorHandler');
 const tourRoutes = require('./routes/tourRoutes');
 const userRoutes = require('./routes/userRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
 const bookingRoutes = require('./routes/bookingRoutes');
 const viewRoutes = require('./routes/viewRoutes');
+
 const app = express();
 
 app.set('view engine', 'pug');
@@ -23,10 +27,6 @@ app.set('views', path.join(__dirname, 'views'));
 // app.use(express.static(`${__dirname}/public`));
 app.use(express.static(path.join(__dirname, `public`)));
 
-// app.use(helmet());
-// app.use(helmet.ContentSecurityPolicy());
-
-// app.use(helmet({ contentSecurityPolicy: false }));
 app.use(
   helmet({
     crossOriginEmbedderPolicy: false,
@@ -40,7 +40,6 @@ app.use(
       },
     },
   })
-  // helmet()
 );
 
 app.use(cors());
@@ -60,12 +59,6 @@ app.use('/api', limiter);
 app.use(cookieParser());
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
-// app.use(formData.parse());
-// app.use(formData.format());
-// // change the file objects to fs.ReadStream
-// app.use(formData.stream());
-// // union the body and the files
-// app.use(formData.union());
 
 app.use(mongoSanitize());
 app.use(xss());
@@ -81,6 +74,8 @@ app.use(
     ],
   })
 );
+
+app.use(compression());
 
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();

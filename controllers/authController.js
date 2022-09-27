@@ -78,7 +78,7 @@ exports.logout = (req, res) => {
 exports.protect = catchAsync(async (req, res, next) => {
   // 1) getting token and check if it's there
   let token = await req.cookies.jwt;
-  console.log('cookie:', token);
+  // console.log('cookie:', token);
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith('Bearer')
@@ -199,7 +199,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
     user.passwordResetToken = undefined;
     user.passwordResetExpires = undefined;
     await user.save({ validateBeforeSave: false });
-    console.log(err);
+    // console.log(err);
     return next(
       new AppError(
         'There was an error sending the email, please try again later'
@@ -211,7 +211,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 exports.resetPassword = catchAsync(async (req, res, next) => {
   // 1) get user based on the token
   // console.log('tok', req.params.token);
-  console.log(req.body.password, req.body.passwordConfirm);
+  // console.log(req.body.password, req.body.passwordConfirm);
   if (req.body.password !== req.body.passwordConfirm) {
     return next(new AppError(`passwords doesn't match`, 400));
   }
@@ -224,7 +224,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
     passwordResetToken: hashedToken,
     passwordResetExpires: { $gt: Date.now() },
   });
-  console.log('use', user);
+  // console.log('use', user);
   // 2) if token has not expired, and there is user , set the new password
   if (!user) {
     return next(new AppError('Token is invalid or has Expired', 400));

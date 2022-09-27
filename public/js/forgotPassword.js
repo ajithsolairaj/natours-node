@@ -4,7 +4,7 @@ export const emailSendForgotPassword = async (email) => {
   try {
     const res = await axios({
       method: 'POST',
-      url: 'http://localhost:3000/api/v1/users/forgotPassword',
+      url: '/api/v1/users/forgotPassword',
       data: {
         email,
         url: true,
@@ -25,7 +25,7 @@ export const emailSendForgotPassword = async (email) => {
       }, 1000);
     }
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     window.setTimeout(() => {
       const markup = `<div class="alert alert--error">${err.response.data.message}</div>`;
       document.querySelector('body').insertAdjacentHTML('afterbegin', markup);
@@ -39,7 +39,7 @@ export const emailSendForgotPassword = async (email) => {
 
 export const sendResetPassword = async (password, passwordConfirm, token) => {
   try {
-    const url = `http://localhost:3000/api/v1/users/resetPassword/${token}`;
+    const url = `/api/v1/users/resetPassword/${token}`;
     const res = await axios({
       method: 'PATCH',
       url,
@@ -63,7 +63,7 @@ export const sendResetPassword = async (password, passwordConfirm, token) => {
       }, 1000);
     }
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     window.setTimeout(() => {
       const markup = `<div class="alert alert--error">${err.response.data.message}</div>`;
       document.querySelector('body').insertAdjacentHTML('afterbegin', markup);

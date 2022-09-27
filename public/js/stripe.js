@@ -6,15 +6,22 @@ const stripe = Stripe(
 export const bookTour = async (tourId) => {
   try {
     // 1) get checkout session from API
-    const session = await axios(
-      `http://localhost:3000/api/v1/bookings/checkout-session/${tourId}`
-    );
-    console.log(session);
+    const session = await axios(`/api/v1/bookings/checkout-session/${tourId}`);
+    // console.log(session);
 
     await stripe.redirectToCheckout({
       sessionId: session.data.session.id,
     });
   } catch (err) {
-    console.log(err);
+    // console.log(err);
+    window.setTimeout(() => {
+      const markup = `<div class="alert alert--error">${err.response.data.message}</div>`;
+      document.querySelector('body').insertAdjacentHTML('afterbegin', markup);
+      window.setTimeout(() => {
+        const el = document.querySelector('.alert');
+        el.parentElement.removeChild(el);
+        // location.reload(true);
+      }, 2000);
+    }, 1000);
   }
 };

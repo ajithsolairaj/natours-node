@@ -66,7 +66,7 @@ if (submitMailForgotPassword) {
   submitMailForgotPassword.addEventListener('submit', (e) => {
     e.preventDefault();
     const email = document.getElementById('email').value;
-    console.log(email);
+    // console.log(email);
     emailSendForgotPassword(email);
   });
 }
@@ -78,7 +78,7 @@ if (passwordSubmit) {
     const password = document.getElementById('password').value;
     const passwordConfirm = document.getElementById('passwordConfirm').value;
     const token = document.getElementById('token').value;
-    console.log(password, passwordConfirm, token);
+    // console.log(password, passwordConfirm, token);
     sendResetPassword(password, passwordConfirm, token);
   });
 }
