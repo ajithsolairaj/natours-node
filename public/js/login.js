@@ -4,7 +4,7 @@ export const login = async (email, password) => {
   try {
     const res = await axios({
       method: 'POST',
-      url: 'http://localhost:3000/api/v1/users/login',
+      url: '/api/v1/users/login',
       data: {
         email,
         password,
@@ -29,7 +29,7 @@ export const login = async (email, password) => {
   } catch (err) {
     // alert('Incorrect email or password');
     window.setTimeout(() => {
-      const markup = `<div class="alert alert--error">Incorrect email or password</div>`;
+      const markup = `<div class="alert alert--error">${err.response.data.message}</div>`;
       document.querySelector('body').insertAdjacentHTML('afterbegin', markup);
       window.setTimeout(() => {
         const el = document.querySelector('.alert');
@@ -43,7 +43,7 @@ export const logout = async () => {
   try {
     const res = await axios({
       method: 'GET',
-      url: 'http://localhost:3000/api/v1/users/logout',
+      url: '/api/v1/users/logout',
     });
     if (res.data.status === 'success') {
       location.reload(true);
