@@ -14,7 +14,7 @@
   <a href="#demonstration">Demonstration</a> •
   <a href="#how-to-use">How To Use</a> •
   <a href="#api-usage">API Usage</a> •
-  <a href="#built-with">Build With</a> •
+  <a href="#built-with">Built With</a> •
   <a href="#to-do">To-do</a> • 
   <a href="#known-bugs">Known Bugs</a> • 
   <a href="#future-updates">Future Updates</a> • 
