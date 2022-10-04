@@ -24,12 +24,12 @@ if (mapBox) {
 if (loginForm) {
   loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    document.querySelector('.forgot-password').textContent = 'processing...';
+    document.querySelector('.login-btn').textContent = 'processing...';
 
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     await login(email, password);
-    document.querySelector('.forgot-password').textContent = 'Login';
+    document.querySelector('.login-btn').textContent = 'Login';
   });
 }
 
