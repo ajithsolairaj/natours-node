@@ -22,11 +22,14 @@ if (mapBox) {
 }
 
 if (loginForm) {
-  loginForm.addEventListener('submit', (e) => {
+  loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+    document.querySelector('.forgot-password').textContent = 'processing...';
+
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
-    login(email, password);
+    await login(email, password);
+    document.querySelector('.forgot-password').textContent = 'Login';
   });
 }
 
@@ -63,36 +66,44 @@ if (userPasswordForm) {
 }
 
 if (submitMailForgotPassword) {
-  submitMailForgotPassword.addEventListener('submit', (e) => {
+  submitMailForgotPassword.addEventListener('submit', async (e) => {
     e.preventDefault();
+    document.querySelector('.mail-btn').textContent = 'processing...';
+
     const email = document.getElementById('email').value;
     // console.log(email);
-    emailSendForgotPassword(email);
+    await emailSendForgotPassword(email);
+    document.querySelector('.mail-btn').textContent = 'Ok';
   });
 }
 
 if (passwordSubmit) {
   // console.log('ggggg');
-  passwordSubmit.addEventListener('submit', (e) => {
+  passwordSubmit.addEventListener('submit', async (e) => {
     e.preventDefault();
+    document.querySelector('.password-btn').textContent = 'processing...';
+
     const password = document.getElementById('password').value;
     const passwordConfirm = document.getElementById('passwordConfirm').value;
     const token = document.getElementById('token').value;
     // console.log(password, passwordConfirm, token);
-    sendResetPassword(password, passwordConfirm, token);
+    await sendResetPassword(password, passwordConfirm, token);
+    document.querySelector('.password-btn').textContent = 'Ok';
   });
 }
 
 if (signupForm) {
-  signupForm.addEventListener('submit', (e) => {
+  signupForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+    document.querySelector('.signup-btn').textContent = 'processing...';
 
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     const passwordConfirm = document.getElementById('passwordConfirm').value;
 
-    signup(name, email, password, passwordConfirm);
+    await signup(name, email, password, passwordConfirm);
+    document.querySelector('.signup-btn').textContent = 'Sign up';
   });
 }
 
