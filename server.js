@@ -22,7 +22,7 @@ mongoose
 
 const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {
-  console.log('connected to server listening at http://localhost:3000');
+  console.log(`connected to server listening at port: ${port}`);
 });
 
 process.on('unhandledRejection', (err) => {
